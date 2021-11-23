@@ -16,9 +16,9 @@
 <header>
 	<nav class="navbar is-transparent">
 
-		<div class="navbar-brand">
+		<div class="navbar-brand is-flex is-flex-grow-1 is-justify-content-center">
 			<a class="navbar-item" href="/">
-				<img src="/punks-nb/punk4154.png" alt="FusePunks" width="30" height="30">
+				<!--<img src="/punks-nb/punk4154.png" alt="FusePunks" width="30" height="30">-->
 				<h1 class='title'>FusePunks</h1>
 			</a>
 			<div class="navbar-burger {showMenu ? 'is-active' : ''}" data-target="navbarExampleTransparentExample" on:click={toggleMenu}>
@@ -30,29 +30,19 @@
 
 		<div id="navbarExampleTransparentExample" class="navbar-menu {showMenu ? 'is-active' : ''}">
 			<div class="navbar-start">
+
+			</div>
+
+			<div class="navbar-end is-flex is-flex-grow-1 is-justify-content-center">
 				<a class="navbar-item" href="/" on:click={closeMenu}>
 					Home
 				</a>
 				<a class="navbar-item" href="/" on:click={closeMenu}>
 					Gallery
 				</a>
-			</div>
-
-			<div class="navbar-end">
-				<div class="navbar-item">
-					<div class="field is-grouped">
-						<p class="control">
-							<a class="bd-tw-button button">
-              <span class="icon">
-                <i class="fas fa-user"></i>
-              </span>
-								<span>
-                Profile
-              </span>
-							</a>
-						</p>
-					</div>
-				</div>
+				<a class="navbar-item" href="/" on:click={closeMenu}>
+					Profile
+				</a>
 			</div>
 
 		</div>
@@ -65,6 +55,6 @@
 	}
 
 	.navbar-brand {
-			font-family: "Comforter Brush", sans-serif;
+			font-family: "Orbitron", sans-serif;
 	}
 </style>
