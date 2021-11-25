@@ -99,14 +99,13 @@
 </section>
 
 <style>
-    .hero {
+    /*.hero {
         background: linear-gradient(
                 180deg,
                 var(--primary-color) 0%,
                 var(--secondary-color) 10.45%,
 								var(--secondary-color) 89%
-                /*var(--primary-color) 100%*/
         );
-    }
+    }*/
 
 </style>

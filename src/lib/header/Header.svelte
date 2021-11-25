@@ -37,7 +37,7 @@
 				<a class="navbar-item" href="/" on:click={closeMenu}>
 					Home
 				</a>
-				<a class="navbar-item" href="/" on:click={closeMenu}>
+				<a class="navbar-item" href="/gallery" on:click={closeMenu}>
 					Gallery
 				</a>
 				<a class="navbar-item" href="/" on:click={closeMenu}>
