@@ -27,7 +27,7 @@
 					</div>
 
 					<div class='block'>
-						<h2><strong>0/10000 Minted</strong></h2>
+						<h2 class='title is-2'><strong>0/10000 Minted</strong></h2>
 					</div>
 
 					<div class='block'>
