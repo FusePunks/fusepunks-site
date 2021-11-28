@@ -1,0 +1,101 @@
+<script context="module" lang="ts">
+	//export const prerender = true;
+</script>
+
+<script lang="ts">
+	import { mmWeb3, mmAddress, mmNFTs, mmConnect, contractAddress } from "$lib/stores";
+	import { onMount } from "svelte";
+
+	let allTokens = [];
+
+	const nfts = async () => {
+		console.log($mmAddress);
+		await mmConnect();
+		if($mmAddress !== null) {
+			allTokens = []
+			getNFTs();
+		} else {
+			window.location.replace("/");
+		}
+	}
+
+	const getNFTs = async () => {
+		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
+		let contract = new $mmWeb3.eth.Contract(await punkABI, $contractAddress, { from: $mmAddress });
+
+		let balance = contract.methods.balanceOf($mmAddress).call().then(function(res) {
+			return res;
+		});
+
+		console.log(await balance);
+
+		for(let i = 0; i < await balance; i++) {
+			let tokenByIndex = contract.methods.tokenOfOwnerByIndex($mmAddress, i).call().then(function(res) {
+				return res;
+			});
+
+			let tokenURI = contract.methods.tokenURI(await tokenByIndex).call().then(function(res) {
+				return res;
+			});
+
+			let uri = await tokenURI;
+			uri = uri.split(",")[1];
+			let json = JSON.parse(window.atob(decodeURIComponent(uri)));
+
+			allTokens.push(json);
+			mmNFTs.set(allTokens);
+		}
+
+		console.log(allTokens);
+	}
+
+	const transferPunk = async (id, toAddress) => {
+
+	}
+
+	const transferModal = async (nft) => {
+		let id = nft.name.split("#")[1];
+		console.log(id);
+	}
+
+	onMount(async () => {
+		nfts();
+	});
+</script>
+
+<section class='section'>
+	<div class='container'>
+
+
+			{#await $mmNFTs}
+				<div class='block is-flex is-justify-content-center'>
+					<h1 class='title'>Loading FusePunks...</h1>
+				</div>
+			{:then value}
+				<div class='block is-flex is-justify-content-center'>
+					<h1 class='title'>Your Punks</h1>
+					<br />
+					<h2 class='title is-2'>Account: {$mmAddress.match(/.{1,6}/g)[0]}...{$mmAddress.match(/.{1,6}/g)[$mmAddress.match(/.{1,6}/g).length - 1]}</h2>
+				</div>
+
+				<div class='columns is-multiline'>
+					{#each mmNFTs as p (p.id)}
+						<div class='column is-one-fifth'>
+							<figure class='image is-square'>
+								<img loading="lazy" decoding="async" src='/punks/punk{p.id}.png'>
+							</figure>
+
+							<div class='block'>
+								<h4 class='title is-4 has-text-centered'>Punk #{p.id}</h4>
+							</div>
+						</div>
+					{/each}
+				</div>
+
+			{/await}
+	</div>
+</section>
+
+<style>
+
+</style>

@@ -35,7 +35,8 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
-    "fuse.js": "^6.4.6"
+    "fuse.js": "^6.4.6",
+    "svelte-web3": "^2.3.3"
   },
   "description": "Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);",
   "main": "svelte.config.js",
