@@ -2,9 +2,9 @@
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../app.scss';
-	import { mmAddress, mmConnect } from '$lib/stores';
+	import { mmWeb3, mmAddress, mmConnect } from '$lib/stores';
 
-	const ethEnabled = () => {
+	if($mmWeb3 === null) {
 		mmConnect();
 	}
 </script>
