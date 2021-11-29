@@ -1,44 +1,74 @@
 <script context="module" lang="ts">
-	export const prerender = false;
+	//export const prerender = true;
 </script>
 
-<script lang="ts">
+<script>
+	//import { ethStore, web3, selectedAccount, connected, chainId, chainData } from 'svelte-web3'
 	import { mmWeb3, mmAddress, mmConnect, contractAddress } from "$lib/stores";
+	import { onMount } from "svelte";
 
-	const getBalance = async () => {
-		if($mmWeb3 === null && $mmAddress === null) return 0;
-		return $mmWeb3.eth.getBalance($mmAddress);
-	}
+	/*const enable = () => ethStore.setProvider('https://rpc.fuse.io');
+	const enableBrowser = () => ethStore.setBrowserProvider();
 
-	const getTotalSupply = async () => {
-		let tempWeb3 = $mmWeb3;
-		if($mmAddress === null) {
-			tempWeb3 = new Web3("https://rpc.fuse.io");
+	$: checkAccount = $selectedAccount || '0x0000000000000000000000000000000000000000';
+	$: balance = $connected ? $web3.eth.getBalance(checkAccount) : '';
+
+	if($connected) {
+		console.log("Connected!!");
+	} else {
+		console.log("Not connected!");
+	}*/
+
+		async function getBalance() {
+			try {
+				if ($mmWeb3 === null && $mmAddress === null) return 0;
+				return $mmWeb3.eth.getBalance($mmAddress);
+			} catch (e) {
+				console.log(e);
+			}
 		}
 
-		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
-		let contract = new tempWeb3.eth.Contract(await punkABI, $contractAddress, { from: $mmAddress });
+		async function getTotalSupply() {
+			try {
+				if ($mmWeb3 === null) {
+					return 0;
+				}
+				let tempWeb3 = $mmWeb3;
+				if ($mmAddress === null) {
+					tempWeb3 = new Web3("https://rpc.fuse.io");
+				}
 
-		let totalSupply = await contract.methods.totalSupply().call().then(function(res) {
-			return res;
-		});
+				const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
+				let contract = new tempWeb3.eth.Contract(await punkABI, $contractAddress, { from: $mmAddress });
 
-		return totalSupply;
-	}
+				let totalSupply = await contract.methods.totalSupply().call().then(function(res) {
+					return res;
+				});
 
-	async function mint() {
-		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
-		await mmConnect();
+				return totalSupply;
+			} catch (e) {
+				console.log(e);
+			}
+		}
 
-		let contract = new $mmWeb3.eth.Contract(punkABI, $contractAddress, { from: $mmAddress });
-		console.log(contract);
-		let tx = await contract.methods.mint($mmAddress).send({ from: $mmAddress, to: $contractAddress, value: $mmWeb3.utils.toWei('2', 'ether') }).then(function(res) {
-			return res;
-		});
+		async function mint() {
+			const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
+			await mmConnect();
 
-		console.log(tx);
-		window.location.replace("/profile");
-	}
+			let contract = new $mmWeb3.eth.Contract(punkABI, $contractAddress, { from: $mmAddress });
+			console.log(contract);
+			let tx = await contract.methods.mint($mmAddress).send({
+				from: $mmAddress,
+				to: $contractAddress,
+				value: $mmWeb3.utils.toWei('2', 'ether')
+			}).then(function(res) {
+				return res;
+			});
+
+			console.log(tx);
+			window.location.replace("/profile");
+		}
+
 </script>
 
 <svelte:head>
