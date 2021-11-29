@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export const prerender = true;
+	export const prerender = false;
 </script>
 
 <script lang="ts">
@@ -26,7 +26,7 @@
 		return totalSupply;
 	}
 
-	const mint = async () => {
+	async function mint() {
 		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
 		await mmConnect();
 
