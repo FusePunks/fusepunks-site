@@ -2,7 +2,7 @@
 	//export const prerender = true;
 </script>
 
-<script lang="ts">
+<script>
 	import Fuse from 'fuse.js';
 	import { punks } from '$lib/data.ts';
 
@@ -34,11 +34,11 @@
 	let defaultPunks = [];
 	let currentSearch = [];
 	let searchText = '';
-	let filters = ["Male", "Female", "Human", "Zombie", "Ape", "Alien", "Bandana", "Cap Forward", "Headband", "Do Rag", "Cap", "Frumpyhair", "Hoodie", "Knitted Cap", "Messy Hair", "Mohawk", "Mohawk Dark", "Mohawk Thin", "Peak Spike", "Shaved Head", "Stringy Hair",
-		"Fedora", "Purple Hair", "Beret", "Clown Hair Green", "Cowboy Hat", "Police Cap", "Vampire Hair", "Wild Hair", "Boater"];
-	let attributes = ["Bandana", "Cap Forward", "Headband", "Do Rag", "Cap", "Frumpyhair", "Hoodie", "Knitted Cap", "Messy Hair", "Mohawk", "Mohawk Dark", "Mohawk Thin", "Peak Spike", "Shaved Head", "Stringy Hair",
-		"Fedora", "Purple Hair", "Beret", "Clown Hair Green", "Cowboy Hat", "Police Cap", "Vampire Hair", "Wild Hair", "Boater"];
+	let filters = ["Male", "Female", "Human", "Zombie", "Ape", "Alien", "Mohawk", "Eye Mask", "Earring", "Silver Chain", "Do Rag", "Frown", "Fedora", "Pipe", "Hoodie", "Big Shades", "Purple Lipstick", "Beret", "Knitted Cap", "Laser Eyes", "Half Shaved", "Cap", "Vape", "Tyrolean", "Messy Hair", "Mustache", "Cigarette", "Peak Spike", "Purple Hair", "Shaved Head", "Normal Beard", "Mole", "Frumpy Hair", "Clown Nose", "Headband", "Green Eye Shadow", "Blonde Bob", "Horned Rim Glasses", "Mohawk Thin", "Wild Hair", "Rosy Cheeks", "Clown Eyes Green", "Clown Eyes Blue", "Smile", "Shadow Beard", "Stringy Hair", "Normal Beard Black", "Medical Mask", "Police Cap", "Front Beard Dark", "Frumpyhair", "Small Shades", "Cap Forward", "Choker", "Bandana", "Mohawk Dark", "Nerd Glasses", "Front Beard", "Turban", "Eye Patch", "Goat", "Laser Eyes Gold", "Spots", "Wild White Hair", "Royal Cocktail Hat", "Luxurious Beard", "Straight Hair Dark", "Classic Shades", "Straight Hair", "Crazy Hair", "Black Lipstick", "Gold Chain", "Boater", "Buck Teeth", "Welding Goggles", "Tuque", "Chinstrap", "Straight Hair Blonde", "Tassle Hat", "Muttonchops", "Handlebars", "VR", "3D Glasses", "Wild Blonde", "Fez", "Sombrero", "Hot Lipstick", "Clown Hair Green", "Orange Side", "Big Beard", "Vampire Hair", "Blue Eye Shadow", "Blonde Short", "Beanie", "Dark Hair", "Flamenco Hat", "Pilot Helmet", "Regular Shades", "Pigtails", "Cowboy Hat", "Pink With Hat", "Flower Crown", "Top Hat", "Panama Hat", "Red Mohawk", "Tiara"];
+	let defaultAttributes = ["Male", "Female", "Human", "Zombie", "Ape", "Alien", "Mohawk", "Eye Mask", "Earring", "Silver Chain", "Do Rag", "Frown", "Fedora", "Pipe", "Hoodie", "Big Shades", "Purple Lipstick", "Beret", "Knitted Cap", "Laser Eyes", "Half Shaved", "Cap", "Vape", "Tyrolean", "Messy Hair", "Mustache", "Cigarette", "Peak Spike", "Purple Hair", "Shaved Head", "Normal Beard", "Mole", "Frumpy Hair", "Clown Nose", "Headband", "Green Eye Shadow", "Blonde Bob", "Horned Rim Glasses", "Mohawk Thin", "Wild Hair", "Rosy Cheeks", "Clown Eyes Green", "Clown Eyes Blue", "Smile", "Shadow Beard", "Stringy Hair", "Normal Beard Black", "Medical Mask", "Police Cap", "Front Beard Dark", "Frumpyhair", "Small Shades", "Cap Forward", "Choker", "Bandana", "Mohawk Dark", "Nerd Glasses", "Front Beard", "Turban", "Eye Patch", "Goat", "Laser Eyes Gold", "Spots", "Wild White Hair", "Royal Cocktail Hat", "Luxurious Beard", "Straight Hair Dark", "Classic Shades", "Straight Hair", "Crazy Hair", "Black Lipstick", "Gold Chain", "Boater", "Buck Teeth", "Welding Goggles", "Tuque", "Chinstrap", "Straight Hair Blonde", "Tassle Hat", "Muttonchops", "Handlebars", "VR", "3D Glasses", "Wild Blonde", "Fez", "Sombrero", "Hot Lipstick", "Clown Hair Green", "Orange Side", "Big Beard", "Vampire Hair", "Blue Eye Shadow", "Blonde Short", "Beanie", "Dark Hair", "Flamenco Hat", "Pilot Helmet", "Regular Shades", "Pigtails", "Cowboy Hat", "Pink With Hat", "Flower Crown", "Top Hat", "Panama Hat", "Red Mohawk", "Tiara"];
+	let attributes = [ "Mohawk", "Eye Mask", "Earring", "Silver Chain", "Do Rag", "Frown", "Fedora", "Pipe", "Hoodie", "Big Shades", "Purple Lipstick", "Beret", "Knitted Cap", "Laser Eyes", "Half Shaved", "Cap", "Vape", "Tyrolean", "Messy Hair", "Mustache", "Cigarette", "Peak Spike", "Purple Hair", "Shaved Head", "Normal Beard", "Mole", "Frumpy Hair", "Clown Nose", "Headband", "Green Eye Shadow", "Blonde Bob", "Horned Rim Glasses", "Mohawk Thin", "Wild Hair", "Rosy Cheeks", "Clown Eyes Green", "Clown Eyes Blue", "Smile", "Shadow Beard", "Stringy Hair", "Normal Beard Black", "Medical Mask", "Police Cap", "Front Beard Dark", "Frumpyhair", "Small Shades", "Cap Forward", "Choker", "Bandana", "Mohawk Dark", "Nerd Glasses", "Front Beard", "Turban", "Eye Patch", "Goat", "Laser Eyes Gold", "Spots", "Wild White Hair", "Royal Cocktail Hat", "Luxurious Beard", "Straight Hair Dark", "Classic Shades", "Straight Hair", "Crazy Hair", "Black Lipstick", "Gold Chain", "Boater", "Buck Teeth", "Welding Goggles", "Tuque", "Chinstrap", "Straight Hair Blonde", "Tassle Hat", "Muttonchops", "Handlebars", "VR", "3D Glasses", "Wild Blonde", "Fez", "Sombrero", "Hot Lipstick", "Clown Hair Green", "Orange Side", "Big Beard", "Vampire Hair", "Blue Eye Shadow", "Blonde Short", "Beanie", "Dark Hair", "Flamenco Hat", "Pilot Helmet", "Regular Shades", "Pigtails", "Cowboy Hat", "Pink With Hat", "Flower Crown", "Top Hat", "Panama Hat", "Red Mohawk", "Tiara" ];
 	let page = 1;
+	let showFilters = true;
 
 	for(let i = 0; i < 50; i++) {
 		defaultPunks.push(punks[i]);
@@ -144,6 +144,22 @@
 	function resetFilters() {
 		filters = ["Male", "Female", "Human", "Zombie", "Ape", "Alien"];
 	}
+
+	function checkAll() {
+		if(filters.length > 0) {
+			filters = []
+		} else {
+			filters = defaultAttributes;
+		}
+
+		displayedPunks = search();
+	}
+
+	function showOrHideFilters() {
+		showFilters = !showFilters;
+	}
+
+
 </script>
 
 <svelte:head>
@@ -190,14 +206,20 @@
 
 				<div class='container'>
 					<div class='block'>
+						<!--<button class='button is-primary' on:click={checkAll}>Check All</button>
+						<button class='button is-primary' on:click={checkAll}>Uncheck All</button>-->
+						<button class='button is-primary' on:click={showOrHideFilters}>{showFilters ? 'Hide Filters' : 'Show Filters'}</button>
+					</div>
+					{#if showFilters}
+					<div class='block'>
 						<h6 class='title is-6'>Gender</h6>
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Male")} checked>
+							<input type="checkbox" on:click={() => editFilters("Male")} checked={filters.includes("Male")}>
 							Male
 						</label>
 						<br />
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Female")} checked>
+							<input type="checkbox" on:click={() => editFilters("Female")} checked={filters.includes("Female")}>
 							Female
 						</label>
 					</div>
@@ -206,22 +228,22 @@
 					<div class='block'>
 						<h6 class='title is-6'>Race</h6>
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Human")} checked>
+							<input type="checkbox" on:click={() => editFilters("Human")} checked={filters.includes("Human")}>
 							Human
 						</label>
 						<br />
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Zombie")} checked>
+							<input type="checkbox" on:click={() => editFilters("Zombie")} checked={filters.includes("Zombie")}>
 							Zombie
 						</label>
 						<br />
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Ape")} checked>
+							<input type="checkbox" on:click={() => editFilters("Ape")} checked={filters.includes("Ape")}>
 							Ape
 						</label>
 						<br />
 						<label class="checkbox">
-							<input type="checkbox" on:click={() => editFilters("Alien")} checked>
+							<input type="checkbox" on:click={() => editFilters("Alien")} checked={filters.includes("Alien")}>
 							Alien
 						</label>
 					</div>
@@ -230,12 +252,13 @@
 						<h6 class='title is-6'>Attributes</h6>
 						{#each attributes as att}
 							<label class="checkbox">
-								<input type="checkbox" on:click={() => editFilters(att)} checked>
+								<input type="checkbox" on:click={() => editFilters(att)} checked={filters.includes(att)}>
 								{att}
 							</label>
 							<br />
 						{/each}
 					</div>
+					{/if}
 				</div>
 
 			</div>

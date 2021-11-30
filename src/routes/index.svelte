@@ -14,7 +14,7 @@
 	const getTotalSupply = async () => {
 		let tempWeb3 = $mmWeb3;
 		if($mmAddress === null) {
-			tempWeb3 = new Web3("https://rps.fuse.io");
+			tempWeb3 = new Web3("https://rpc.fuse.io");
 		}
 
 		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
@@ -29,11 +29,18 @@
 
 	const mint = async () => {
 		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
-		await mmConnect();
 
+		if($mmWeb3 == null) {
+			await mmConnect();
+		}
+
+		if(!$mmWeb3.chainId === '0x7a') {
+			console.log('Not on the Fuse Chain');
+			return;
+		}
 		let contract = new $mmWeb3.eth.Contract(punkABI, $contractAddress, { from: $mmAddress });
 		console.log(contract);
-		let tx = await contract.methods.mint($mmAddress).send({ from: $mmAddress, to: $contractAddress, value: $mmWeb3.utils.toWei('2', 'ether') }).then(function(res) {
+		let tx = await contract.methods.mint($mmAddress).send({ from: $mmAddress, to: $contractAddress, value: $mmWeb3.utils.toWei('20', 'ether') }).then(function(res) {
 			return res;
 		});
 
@@ -64,11 +71,21 @@
 					</div>
 
 					<div class='block'>
-						<h2 class='title is-2'><strong>0/10000 Minted</strong></h2>
+						{#await getTotalSupply()}
+							<h2 class='title is-2'><strong>0/10000 Minted</strong></h2>
+						{:then supply}
+							<h2 class='title is-2'><strong>{supply}/10000 Minted</strong></h2>
+						{/await}
 					</div>
 
 					<div class='block'>
-						<button class='button is-primary is-large is-fullwidth'>Mint One!</button>
+						{#if $mmWeb3 === null}
+							<h4 class='title is-4'>Please install MetaMask and connect it to the Fuse Chain if you wish to mint a FusePunk.</h4>
+						{:else}
+							<button class='button is-primary is-large is-fullwidth' on:click={mint}>Mint One! (20 FUSE)</button>
+							<p class='is-size-7'>Please ensure your MetaMask is connected to the Fuse Network.</p>
+						{/if}
+
 					</div>
 				</div>
 

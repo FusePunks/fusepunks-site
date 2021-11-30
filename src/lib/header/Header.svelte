@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import logo from './svelte-logo.svg';
+	import { mmAddress, mmConnect } from "$lib/stores";
+
 	let showMenu = false;
 
 	function toggleMenu() {
@@ -40,9 +42,16 @@
 				<a class="navbar-item" href="/gallery" on:click={closeMenu}>
 					Gallery
 				</a>
-				<a class="navbar-item" href="/profile" on:click={closeMenu}>
-					Profile
-				</a>
+				{#if $mmAddress !== null}
+					<a class="navbar-item" href="/#" on:click={mmConnect}>
+						Connect
+					</a>
+				{:else}
+					<a class="navbar-item" href="/profile" on:click={closeMenu}>
+						Profile
+					</a>
+				{/if}
+
 			</div>
 
 		</div>

@@ -2253,7 +2253,7 @@
   "type" : 1,
   "race" : "Human",
   "gender" : "Female",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 376,
   "type" : 1,
@@ -22581,7 +22581,7 @@
   "type" : 3,
   "race" : "Human",
   "gender" : "Female",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 3764,
   "type" : 4,
@@ -27549,7 +27549,7 @@
   "type" : 3,
   "race" : "Human",
   "gender" : "Male",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 4592,
   "type" : 4,
@@ -28779,7 +28779,7 @@
   "type" : 1,
   "race" : "Zombie",
   "gender" : "Male",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 4797,
   "type" : 3,
@@ -32271,7 +32271,7 @@
   "type" : 2,
   "race" : "Human",
   "gender" : "Female",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 5379,
   "type" : 4,
@@ -38739,7 +38739,7 @@
   "type" : 4,
   "race" : "Human",
   "gender" : "Male",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 6457,
   "type" : 1,
@@ -39327,7 +39327,7 @@
   "type" : 4,
   "race" : "Human",
   "gender" : "Female",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 6555,
   "type" : 1,
@@ -49617,7 +49617,7 @@
   "type" : 1,
   "race" : "Human",
   "gender" : "Male",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 8270,
   "type" : 3,
@@ -59385,7 +59385,7 @@
   "type" : 2,
   "race" : "Human",
   "gender" : "Male",
-  "attributes" : [ "" ]
+  "attributes" : [ ]
 }, {
   "id" : 9898,
   "type" : 2,
