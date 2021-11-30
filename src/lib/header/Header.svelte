@@ -43,13 +43,14 @@
 					Gallery
 				</a>
 				{#if $mmAddress !== null}
-					<a class="navbar-item" href="/#" on:click={mmConnect}>
-						Connect
-					</a>
-				{:else}
 					<a class="navbar-item" href="/profile" on:click={closeMenu}>
 						Profile
 					</a>
+				{:else}
+					<a class="navbar-item" href="/#" on:click={mmConnect}>
+						Connect
+					</a>
+
 				{/if}
 
 			</div>

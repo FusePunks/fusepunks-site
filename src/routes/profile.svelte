@@ -75,8 +75,8 @@
 				<div class='block is-flex is-justify-content-center'>
 					<h1 class='title'>Loading FusePunks...</h1>
 				</div>
-			{:then value}
-				{#if value.length > 0}
+			{:then nfts}
+				{#if nfts.length > 0}
 					<div class='block is-flex is-justify-content-center'>
 						<h2 class='title is-2'>Your Punks</h2>
 					</div>
@@ -84,19 +84,19 @@
 						<h4 class='title is-4'>Account: {$mmAddress.match(/.{1,6}/g)[0]}...{$mmAddress.match(/.{1,6}/g)[$mmAddress.match(/.{1,6}/g).length - 1]}</h4>
 					</div>
 
-				<div class='columns is-multiline'>
-					{#each mmNFTs as p (p.id)}
-						<div class='column is-one-fifth'>
-							<figure class='image is-square'>
-								<img loading="lazy" decoding="async" src='/punks/punk{p.id}.png'>
-							</figure>
+					<div class='columns is-multiline'>
+						{#each nfts as nft}
+							<div class='column is-one-fifth'>
+								<figure class='image is-square'>
+									<img loading="lazy" decoding="async" src='{nft.image}'>
+								</figure>
 
-							<div class='block'>
-								<h4 class='title is-4 has-text-centered'>Punk #{p.id}</h4>
+								<div class='block'>
+									<h4 class='title is-4 has-text-centered'>{nft.name}</h4>
+								</div>
 							</div>
-						</div>
-					{/each}
-				</div>
+						{/each}
+					</div>
 				{:else}
 					<div class='block is-flex is-justify-content-center'>
 						<h2 class='title is-2'>Your Punks</h2>
