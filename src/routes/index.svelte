@@ -65,7 +65,7 @@
 
 				<div class='column has-text-centered'>
 					<div class='block'>
-						<h1 class='title'>The First Punks Collection on the Fuse Network.</h1>
+						<h1 class='title'>A Unique Collection of Punks on the Fuse Network.</h1>
 					</div>
 
 					<div class='block'>
