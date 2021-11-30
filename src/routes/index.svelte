@@ -30,9 +30,7 @@
 	const mint = async () => {
 		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
 
-		if($mmWeb3 == null) {
-			await mmConnect();
-		}
+		await mmConnect();
 
 		if(!$mmWeb3.chainId === '0x7a') {
 			console.log('Not on the Fuse Chain');
