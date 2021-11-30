@@ -6,7 +6,7 @@ export const isConnected = writable(false);
 export const mmWeb3 = writable(null);
 export const mmAddress = writable(null);
 export const mmNFTs = writable([]);
-export const contractAddress = writable("0xf697F0fe68f9D1e5AdcaDF723b232eBd601e59b0");
+export const contractAddress = writable("0x080520C8B95e4bbfc55Aada2a362575433E56533");
 
 export const mmConnect = async () => {
 	try {
