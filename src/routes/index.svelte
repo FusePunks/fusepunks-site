@@ -5,74 +5,46 @@
 <script>
 	//import { ethStore, web3, selectedAccount, connected, chainId, chainData } from 'svelte-web3'
 	import { mmWeb3, mmAddress, mmConnect, contractAddress } from "$lib/stores";
-	import { onMount } from "svelte";
 
-	/*const enable = () => ethStore.setProvider('https://rpc.fuse.io');
-	const enableBrowser = () => ethStore.setBrowserProvider();
+	const getBalance = async () => {
+		if($mmWeb3 === null && $mmAddress === null) return 0;
+		return $mmWeb3.eth.getBalance($mmAddress);
+	}
 
-	$: checkAccount = $selectedAccount || '0x0000000000000000000000000000000000000000';
-	$: balance = $connected ? $web3.eth.getBalance(checkAccount) : '';
-
-	if($connected) {
-		console.log("Connected!!");
-	} else {
-		console.log("Not connected!");
-	}*/
-
-		async function getBalance() {
-			try {
-				if ($mmWeb3 === null && $mmAddress === null) return 0;
-				return $mmWeb3.eth.getBalance($mmAddress);
-			} catch (e) {
-				console.log(e);
-			}
+	const getTotalSupply = async () => {
+		let tempWeb3 = $mmWeb3;
+		if($mmAddress === null) {
+			tempWeb3 = new Web3("https://rps.fuse.io");
 		}
 
-		async function getTotalSupply() {
-			try {
-				if ($mmWeb3 === null) {
-					return 0;
-				}
-				let tempWeb3 = $mmWeb3;
-				if ($mmAddress === null) {
-					tempWeb3 = new Web3("https://rpc.fuse.io");
-				}
+		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
+		let contract = new tempWeb3.eth.Contract(await punkABI, $contractAddress, { from: $mmAddress });
 
-				const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
-				let contract = new tempWeb3.eth.Contract(await punkABI, $contractAddress, { from: $mmAddress });
+		let totalSupply = await contract.methods.totalSupply().call().then(function(res) {
+			return res;
+		});
 
-				let totalSupply = await contract.methods.totalSupply().call().then(function(res) {
-					return res;
-				});
+		return totalSupply;
+	}
 
-				return totalSupply;
-			} catch (e) {
-				console.log(e);
-			}
-		}
+	const mint = async () => {
+		const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
+		await mmConnect();
 
-		async function mint() {
-			const punkABI = await fetch('./data/punks_abi.json').then(res => res.json());
-			await mmConnect();
+		let contract = new $mmWeb3.eth.Contract(punkABI, $contractAddress, { from: $mmAddress });
+		console.log(contract);
+		let tx = await contract.methods.mint($mmAddress).send({ from: $mmAddress, to: $contractAddress, value: $mmWeb3.utils.toWei('2', 'ether') }).then(function(res) {
+			return res;
+		});
 
-			let contract = new $mmWeb3.eth.Contract(punkABI, $contractAddress, { from: $mmAddress });
-			console.log(contract);
-			let tx = await contract.methods.mint($mmAddress).send({
-				from: $mmAddress,
-				to: $contractAddress,
-				value: $mmWeb3.utils.toWei('2', 'ether')
-			}).then(function(res) {
-				return res;
-			});
-
-			console.log(tx);
-			window.location.replace("/profile");
-		}
+		console.log(tx);
+		window.location.replace("/profile");
+	}
 
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>FusePunks</title>
 </svelte:head>
 
 <section class="hero is-fullheight-with-navbar">
@@ -137,25 +109,19 @@
 					<h2 class='title'>On-Chain</h2>
 				</div>
 				<div class='block'>
-					The data for each TomoPunk is stored entirely on the TomoChain Blockchain. This includes the image of the TomoPunk and its metadata.
+					Inspired by the TomoPunks collection, FusePunks are stored entirely on the Fuse Network Blockchain. Both the image and attribute data will forever be retrievable directly from the Blockchain.
 				</div>
 				<div class='block'>
-					Other NFT projects commonly use IPFS, Arweave or even Google Drive to store NFT data off-chain, as fees would be too high to store the data on-chain. Thanks to the super-low fees on TomoChain we stored all 10,000 NFTs directly on chain for under $6.
+					It's common for NFT projects to use storage services such as, IPFS, Arweave or even just Google Cloud to store NFT data off-chain, this is done as most networks would require extortionate gas fees to be paid to store this much data on-chain. However, the Fuse Network has super-low gas fees which has allowed us to upload all the data for FusePunks for an extremely low cost.
 				</div>
 			</div>
 
 			<div class='column' style='padding-bottom: 0px'>
 				<div class='block has-text-centered'>
-					<h2 class='title'>Unique</h2>
+					<h2 class='title'>Rare</h2>
 				</div>
 				<div class='block'>
-					Every TomoPunk has been randomly generated, each with its own unique features. Attributes of TomoPunks have a variety of rarities, will you mint the rarest combination?
-				</div>
-				<div class='block has-text-centered'>
-					<h2 class='title'>Fast</h2>
-				</div>
-				<div class='block'>
-					TomoChain is fast, with an average confirmation time of just 2 seconds and a gas cost of 0.00003 TOMO, buying and transferring TomoPunks is extremely fast and extremely cheap!
+					FusePunks were all randomly generated using our own generation tool, the rarities for each attribute was pre-defined, which resulted in a highly unique collection of Punks sporting the Fuse Networks brand colors for their backgrounds. Certain attributes have a much higher rarity than others, while humans are relatively common, they may posses attributes such as the pipe which is considerably rare. However, there is none more rare than the elusive Alien, in which there are only 12 in the entire collection!
 				</div>
 			</div>
 

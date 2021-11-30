@@ -2,7 +2,7 @@
 	//export const prerender = true;
 </script>
 
-<script lang="ts">
+<script>
 	import { mmWeb3, mmAddress, mmNFTs, mmConnect, contractAddress } from "$lib/stores";
 	import { onMount } from "svelte";
 
@@ -63,20 +63,26 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Profile</title>
+</svelte:head>
+
 <section class='section'>
 	<div class='container'>
 
-
+		{#if $mmWeb3 !== null}
 			{#await $mmNFTs}
 				<div class='block is-flex is-justify-content-center'>
 					<h1 class='title'>Loading FusePunks...</h1>
 				</div>
 			{:then value}
-				<div class='block is-flex is-justify-content-center'>
-					<h1 class='title'>Your Punks</h1>
-					<br />
-					<h2 class='title is-2'>Account: {$mmAddress.match(/.{1,6}/g)[0]}...{$mmAddress.match(/.{1,6}/g)[$mmAddress.match(/.{1,6}/g).length - 1]}</h2>
-				</div>
+				{#if value.length > 0}
+					<div class='block is-flex is-justify-content-center'>
+						<h2 class='title is-2'>Your Punks</h2>
+					</div>
+					<div class='block is-flex is-justify-content-center'>
+						<h4 class='title is-4'>Account: {$mmAddress.match(/.{1,6}/g)[0]}...{$mmAddress.match(/.{1,6}/g)[$mmAddress.match(/.{1,6}/g).length - 1]}</h4>
+					</div>
 
 				<div class='columns is-multiline'>
 					{#each mmNFTs as p (p.id)}
@@ -91,8 +97,23 @@
 						</div>
 					{/each}
 				</div>
-
+				{:else}
+					<div class='block is-flex is-justify-content-center'>
+						<h2 class='title is-2'>Your Punks</h2>
+					</div>
+					<div class='block is-flex is-justify-content-center'>
+						<h4 class='title is-4'>Account: {$mmAddress.match(/.{1,6}/g)[0]}...{$mmAddress.match(/.{1,6}/g)[$mmAddress.match(/.{1,6}/g).length - 1]}</h4>
+					</div>
+					<div class='block is-flex is-justify-content-center'>
+						<h5 class='title is-5'>You don't own any punks. Mint one now!</h5>
+					</div>
+				{/if}
 			{/await}
+		{:else}
+			<div class='block is-flex is-justify-content-center'>
+				<h1 class='title'>MetaMask is not connected.</h1>
+			</div>
+		{/if}
 	</div>
 </section>
 

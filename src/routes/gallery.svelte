@@ -146,6 +146,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Gallery</title>
+</svelte:head>
+
 <section class='section'>
 	<div class='container'>
 		<!-- Main container -->
