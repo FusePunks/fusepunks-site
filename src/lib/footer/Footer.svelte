@@ -10,7 +10,7 @@
 			<div class="level-left">
 				<div class="level-item">
 					<div class='block'>
-						<a href='https://explorer.fuse.io/address/0x080520C8B95e4bbfc55Aada2a362575433E56533/contracts'><h1 class='title'>Contract</h1></a>
+						<a href='https://explorer.fuse.io/address/0x080520C8B95e4bbfc55Aada2a362575433E56533/contracts'><h5 class='title is-5'>Contract</h5></a>
 					</div>
 				</div>
 			</div>
