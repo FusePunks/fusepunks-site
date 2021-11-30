@@ -15,11 +15,11 @@
 			await
 		}*/
 
-		if ($mmWeb3 === null) {
+		/*if ($mmWeb3 === null) {
 			console.log("Connecting mmWeb3");
 			console.log($mmWeb3);
 			mmConnect();
-		}
+		}*/
 	});
 </script>
 

@@ -78,7 +78,7 @@
 
 					<div class='block'>
 						{#if $mmWeb3 === null}
-							<h4 class='title is-4'>Please install MetaMask and connect it to the Fuse Chain if you wish to mint a FusePunk.</h4>
+							<button class='button is-primary is-large is-fullwidth' on:click={mmConnect}>Connect MetaMask</button>
 						{:else}
 							<button class='button is-primary is-large is-fullwidth' on:click={mint}>Mint One! (20 FUSE)</button>
 							<p class='is-size-7'>Please ensure your MetaMask is connected to the Fuse Network.</p>
