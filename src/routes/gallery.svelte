@@ -149,15 +149,18 @@
 	$: searchText, getPunks();
 
 	function punkContainsAnAttribute(punk) {
-		let javascriptSucks = false;
+		let matches = 0;
 		punk.attributes.forEach(att => {
 			if(attributeFilters.includes(att)) {
-				console.log("Punk contains attribute "+att);
-				javascriptSucks = true;
+				matches++
 			}
 		});
 
-		return javascriptSucks;
+		if(matches === attributeFilters.length) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function loadMore() {
